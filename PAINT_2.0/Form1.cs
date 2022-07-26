@@ -1,15 +1,19 @@
 using System.Drawing.Imaging;
+using System.Windows.Input;
 
 namespace PAINT_2._0
 {
-    public partial class Form1 : Form
+    public partial class Pens : Form
     {
-        public Form1()
+        public Pens()
         {
             InitializeComponent();
-            this.Width = 1233;
-            this.Height = 620;
-            bm=new Bitmap(pic.Width,pic.Height);
+            StartPosition = FormStartPosition.CenterScreen;
+            this.Width = 100;
+            this.Height = 800;
+            //WindowSize();
+            RoundingPen();
+            bm =new Bitmap(pic.Width,pic.Height);
             g = Graphics.FromImage(bm);
             g.Clear(Color.White);
             pic.Image = bm;
@@ -152,17 +156,55 @@ namespace PAINT_2._0
         private void button_save_Click(object sender, EventArgs e)
         {
             var sfd=new SaveFileDialog();
-            sfd.Filter = "Image(*.jpg)|*.jpg|(*.*|*.*";
+            sfd.Filter = "Image(*.jpg)|*.jpg|(*.*)|*.*";
             if(sfd.ShowDialog()==DialogResult.OK)
             {
                 Bitmap btm = bm.Clone(new Rectangle(0,0,pic.Width, pic.Height), bm.PixelFormat);
                 btm.Save(sfd.FileName, ImageFormat.Jpeg);
+                MessageBox.Show("Image Saved Sucessfully...");
             }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            p.Width = trackBar1.Value;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button_background_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files(*.BMP;*.JPG;*GIF;*PNG)|*.BMP;*.JPG;*GIF;*PNG|ALL FILES (*.*)|*.*";
+            if(ofd.ShowDialog()==DialogResult.OK)
+            {
+                try
+                {
+                    pic.Image=new Bitmap(ofd.FileName);
+                }
+                catch
+                {
+                    MessageBox.Show("Невозможно открыть выбранный файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            pic.Enabled = true;
+        }
+
+        private void Pens_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Pens_Resize(object sender, EventArgs e)
+        {
+            RoundingPen();
+            bm = new Bitmap(pic.Width, pic.Height);
+            g = Graphics.FromImage(bm);
+            g.Clear(Color.White);
+            pic.Image = bm;
         }
 
         private void pic_MouseMove(object sender, MouseEventArgs e)
@@ -229,7 +271,20 @@ namespace PAINT_2._0
             cY = e.Y;
         }
 
-        
-        
+        private void RoundingPen()
+        {
+            p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            p.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+
+        }
+
+        //private void WindowSize()
+        //{
+        //    Rectangle rectangle = Screen.PrimaryScreen.Bounds;
+        //    bm= new Bitmap(rectangle.Width, rectangle.Height);
+        //    g = Graphics.FromImage(bm);
+        //}
+
+
     }
 }

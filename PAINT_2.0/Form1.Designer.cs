@@ -1,6 +1,6 @@
 ﻿namespace PAINT_2._0
 {
-    partial class Form1
+    partial class Pens
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pens));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button_background = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button_save = new System.Windows.Forms.Button();
             this.color_picker = new System.Windows.Forms.PictureBox();
             this.button_line = new System.Windows.Forms.Button();
@@ -42,9 +44,9 @@
             this.picture_color = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button_clear = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.pic = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.color_picker)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
@@ -53,6 +55,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel1.Controls.Add(this.button_background);
+            this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Controls.Add(this.button_save);
             this.panel1.Controls.Add(this.color_picker);
             this.panel1.Controls.Add(this.button_line);
@@ -67,9 +71,37 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1233, 158);
+            this.panel1.Size = new System.Drawing.Size(1271, 185);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // button_background
+            // 
+            this.button_background.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_background.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_background.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button_background.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.button_background.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_background.ForeColor = System.Drawing.Color.White;
+            this.button_background.Image = ((System.Drawing.Image)(resources.GetObject("button_background.Image")));
+            this.button_background.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.button_background.Location = new System.Drawing.Point(1137, 15);
+            this.button_background.Name = "button_background";
+            this.button_background.Size = new System.Drawing.Size(90, 103);
+            this.button_background.TabIndex = 11;
+            this.button_background.Text = "Background";
+            this.button_background.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button_background.UseVisualStyleBackColor = false;
+            this.button_background.Click += new System.EventHandler(this.button_background_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.BackColor = System.Drawing.Color.AliceBlue;
+            this.trackBar1.Location = new System.Drawing.Point(58, 137);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(95, 45);
+            this.trackBar1.TabIndex = 10;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
             // 
             // button_save
             // 
@@ -80,7 +112,7 @@
             this.button_save.ForeColor = System.Drawing.Color.White;
             this.button_save.Image = ((System.Drawing.Image)(resources.GetObject("button_save.Image")));
             this.button_save.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_save.Location = new System.Drawing.Point(1109, 28);
+            this.button_save.Location = new System.Drawing.Point(1041, 15);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(90, 103);
             this.button_save.TabIndex = 9;
@@ -93,7 +125,7 @@
             // 
             this.color_picker.Cursor = System.Windows.Forms.Cursors.Hand;
             this.color_picker.Image = ((System.Drawing.Image)(resources.GetObject("color_picker.Image")));
-            this.color_picker.Location = new System.Drawing.Point(12, 12);
+            this.color_picker.Location = new System.Drawing.Point(3, 3);
             this.color_picker.Name = "color_picker";
             this.color_picker.Size = new System.Drawing.Size(248, 128);
             this.color_picker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -111,7 +143,7 @@
             this.button_line.ForeColor = System.Drawing.Color.White;
             this.button_line.Image = ((System.Drawing.Image)(resources.GetObject("button_line.Image")));
             this.button_line.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_line.Location = new System.Drawing.Point(917, 28);
+            this.button_line.Location = new System.Drawing.Point(849, 15);
             this.button_line.Name = "button_line";
             this.button_line.Size = new System.Drawing.Size(90, 103);
             this.button_line.TabIndex = 7;
@@ -129,7 +161,7 @@
             this.button_rectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_rectangle.ForeColor = System.Drawing.Color.White;
             this.button_rectangle.Image = ((System.Drawing.Image)(resources.GetObject("button_rectangle.Image")));
-            this.button_rectangle.Location = new System.Drawing.Point(821, 28);
+            this.button_rectangle.Location = new System.Drawing.Point(753, 15);
             this.button_rectangle.Name = "button_rectangle";
             this.button_rectangle.Size = new System.Drawing.Size(90, 103);
             this.button_rectangle.TabIndex = 6;
@@ -147,7 +179,7 @@
             this.button_ellipse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_ellipse.ForeColor = System.Drawing.Color.White;
             this.button_ellipse.Image = ((System.Drawing.Image)(resources.GetObject("button_ellipse.Image")));
-            this.button_ellipse.Location = new System.Drawing.Point(725, 28);
+            this.button_ellipse.Location = new System.Drawing.Point(657, 15);
             this.button_ellipse.Name = "button_ellipse";
             this.button_ellipse.Size = new System.Drawing.Size(90, 103);
             this.button_ellipse.TabIndex = 5;
@@ -165,7 +197,7 @@
             this.button_eraser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_eraser.ForeColor = System.Drawing.Color.White;
             this.button_eraser.Image = ((System.Drawing.Image)(resources.GetObject("button_eraser.Image")));
-            this.button_eraser.Location = new System.Drawing.Point(629, 28);
+            this.button_eraser.Location = new System.Drawing.Point(561, 15);
             this.button_eraser.Name = "button_eraser";
             this.button_eraser.Size = new System.Drawing.Size(90, 103);
             this.button_eraser.TabIndex = 4;
@@ -184,7 +216,7 @@
             this.button_pencil.ForeColor = System.Drawing.Color.White;
             this.button_pencil.Image = ((System.Drawing.Image)(resources.GetObject("button_pencil.Image")));
             this.button_pencil.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_pencil.Location = new System.Drawing.Point(533, 28);
+            this.button_pencil.Location = new System.Drawing.Point(465, 15);
             this.button_pencil.Name = "button_pencil";
             this.button_pencil.Size = new System.Drawing.Size(90, 103);
             this.button_pencil.TabIndex = 3;
@@ -203,7 +235,7 @@
             this.button_fill.ForeColor = System.Drawing.Color.White;
             this.button_fill.Image = ((System.Drawing.Image)(resources.GetObject("button_fill.Image")));
             this.button_fill.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_fill.Location = new System.Drawing.Point(437, 28);
+            this.button_fill.Location = new System.Drawing.Point(369, 15);
             this.button_fill.Name = "button_fill";
             this.button_fill.Size = new System.Drawing.Size(90, 103);
             this.button_fill.TabIndex = 2;
@@ -222,7 +254,7 @@
             this.button_color.ForeColor = System.Drawing.Color.White;
             this.button_color.Image = ((System.Drawing.Image)(resources.GetObject("button_color.Image")));
             this.button_color.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_color.Location = new System.Drawing.Point(341, 28);
+            this.button_color.Location = new System.Drawing.Point(273, 15);
             this.button_color.Name = "button_color";
             this.button_color.Size = new System.Drawing.Size(90, 103);
             this.button_color.TabIndex = 1;
@@ -234,7 +266,7 @@
             // picture_color
             // 
             this.picture_color.BackColor = System.Drawing.Color.White;
-            this.picture_color.Location = new System.Drawing.Point(266, 60);
+            this.picture_color.Location = new System.Drawing.Point(3, 140);
             this.picture_color.Name = "picture_color";
             this.picture_color.Size = new System.Drawing.Size(49, 45);
             this.picture_color.TabIndex = 0;
@@ -245,9 +277,9 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel3.Controls.Add(this.button_clear);
-            this.panel3.Location = new System.Drawing.Point(330, 20);
+            this.panel3.Location = new System.Drawing.Point(262, 7);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(880, 120);
+            this.panel3.Size = new System.Drawing.Size(976, 120);
             this.panel3.TabIndex = 8;
             // 
             // button_clear
@@ -268,23 +300,15 @@
             this.button_clear.UseVisualStyleBackColor = false;
             this.button_clear.Click += new System.EventHandler(this.button_clear_Click);
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 580);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1233, 40);
-            this.panel2.TabIndex = 1;
-            // 
             // pic
             // 
             this.pic.BackColor = System.Drawing.Color.White;
             this.pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic.Location = new System.Drawing.Point(0, 0);
+            this.pic.MinimumSize = new System.Drawing.Size(1271, 627);
             this.pic.Name = "pic";
-            this.pic.Size = new System.Drawing.Size(1233, 620);
+            this.pic.Size = new System.Drawing.Size(1271, 627);
             this.pic.TabIndex = 2;
             this.pic.TabStop = false;
             this.pic.Click += new System.EventHandler(this.pic_Click);
@@ -294,19 +318,23 @@
             this.pic.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pic_MouseMove);
             this.pic.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pic_MouseUp);
             // 
-            // Form1
+            // Pens
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1233, 620);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(1271, 627);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pic);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Form1";
+            this.MinimumSize = new System.Drawing.Size(1287, 666);
+            this.Name = "Pens";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Form1";
+            this.Text = "Paint 2.0";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Pens_Load);
+            this.Resize += new System.EventHandler(this.Pens_Resize);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.color_picker)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
@@ -317,7 +345,6 @@
         #endregion
 
         private Panel panel1;
-        private Panel panel2;
         private PictureBox pic;
         private Button button_color;
         private Button picture_color;
@@ -331,5 +358,7 @@
         private PictureBox color_picker;
         private Button button_save;
         private Button button_clear;
+        private TrackBar trackBar1;
+        private Button button_background;
     }
 }
