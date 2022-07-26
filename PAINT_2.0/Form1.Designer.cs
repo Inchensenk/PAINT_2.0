@@ -30,23 +30,27 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.color_picker = new System.Windows.Forms.PictureBox();
+            this.button_line = new System.Windows.Forms.Button();
+            this.button_rectangle = new System.Windows.Forms.Button();
+            this.button_ellipse = new System.Windows.Forms.Button();
+            this.button_eraser = new System.Windows.Forms.Button();
+            this.button_pencil = new System.Windows.Forms.Button();
             this.button_fill = new System.Windows.Forms.Button();
             this.button_color = new System.Windows.Forms.Button();
             this.picture_color = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pic = new System.Windows.Forms.PictureBox();
-            this.button_pencil = new System.Windows.Forms.Button();
-            this.button_eraser = new System.Windows.Forms.Button();
-            this.button_ellipse = new System.Windows.Forms.Button();
-            this.button_rectangle = new System.Windows.Forms.Button();
-            this.button_line = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.color_picker)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel1.Controls.Add(this.color_picker);
             this.panel1.Controls.Add(this.button_line);
             this.panel1.Controls.Add(this.button_rectangle);
             this.panel1.Controls.Add(this.button_ellipse);
@@ -55,11 +59,106 @@
             this.panel1.Controls.Add(this.button_fill);
             this.panel1.Controls.Add(this.button_color);
             this.panel1.Controls.Add(this.picture_color);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1233, 158);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // color_picker
+            // 
+            this.color_picker.Image = ((System.Drawing.Image)(resources.GetObject("color_picker.Image")));
+            this.color_picker.Location = new System.Drawing.Point(12, 12);
+            this.color_picker.Name = "color_picker";
+            this.color_picker.Size = new System.Drawing.Size(248, 128);
+            this.color_picker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.color_picker.TabIndex = 9;
+            this.color_picker.TabStop = false;
+            // 
+            // button_line
+            // 
+            this.button_line.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_line.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button_line.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.button_line.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_line.ForeColor = System.Drawing.Color.White;
+            this.button_line.Image = ((System.Drawing.Image)(resources.GetObject("button_line.Image")));
+            this.button_line.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.button_line.Location = new System.Drawing.Point(917, 28);
+            this.button_line.Name = "button_line";
+            this.button_line.Size = new System.Drawing.Size(90, 103);
+            this.button_line.TabIndex = 7;
+            this.button_line.Text = "Line";
+            this.button_line.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button_line.UseVisualStyleBackColor = false;
+            // 
+            // button_rectangle
+            // 
+            this.button_rectangle.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_rectangle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button_rectangle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.button_rectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_rectangle.ForeColor = System.Drawing.Color.White;
+            this.button_rectangle.Image = ((System.Drawing.Image)(resources.GetObject("button_rectangle.Image")));
+            this.button_rectangle.Location = new System.Drawing.Point(821, 28);
+            this.button_rectangle.Name = "button_rectangle";
+            this.button_rectangle.Size = new System.Drawing.Size(90, 103);
+            this.button_rectangle.TabIndex = 6;
+            this.button_rectangle.Text = "Rectangle";
+            this.button_rectangle.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button_rectangle.UseVisualStyleBackColor = false;
+            // 
+            // button_ellipse
+            // 
+            this.button_ellipse.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_ellipse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button_ellipse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.button_ellipse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_ellipse.ForeColor = System.Drawing.Color.White;
+            this.button_ellipse.Image = ((System.Drawing.Image)(resources.GetObject("button_ellipse.Image")));
+            this.button_ellipse.Location = new System.Drawing.Point(725, 28);
+            this.button_ellipse.Name = "button_ellipse";
+            this.button_ellipse.Size = new System.Drawing.Size(90, 103);
+            this.button_ellipse.TabIndex = 5;
+            this.button_ellipse.Text = "Ellipse";
+            this.button_ellipse.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button_ellipse.UseVisualStyleBackColor = false;
+            // 
+            // button_eraser
+            // 
+            this.button_eraser.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_eraser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button_eraser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.button_eraser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_eraser.ForeColor = System.Drawing.Color.White;
+            this.button_eraser.Image = ((System.Drawing.Image)(resources.GetObject("button_eraser.Image")));
+            this.button_eraser.Location = new System.Drawing.Point(629, 28);
+            this.button_eraser.Name = "button_eraser";
+            this.button_eraser.Size = new System.Drawing.Size(90, 103);
+            this.button_eraser.TabIndex = 4;
+            this.button_eraser.Text = "Eraser";
+            this.button_eraser.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button_eraser.UseVisualStyleBackColor = false;
+            // 
+            // button_pencil
+            // 
+            this.button_pencil.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_pencil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.button_pencil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
+            this.button_pencil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_pencil.ForeColor = System.Drawing.Color.White;
+            this.button_pencil.Image = ((System.Drawing.Image)(resources.GetObject("button_pencil.Image")));
+            this.button_pencil.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.button_pencil.Location = new System.Drawing.Point(533, 28);
+            this.button_pencil.Name = "button_pencil";
+            this.button_pencil.Size = new System.Drawing.Size(90, 103);
+            this.button_pencil.TabIndex = 3;
+            this.button_pencil.Text = "Pencil";
+            this.button_pencil.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button_pencil.UseVisualStyleBackColor = false;
+            this.button_pencil.Click += new System.EventHandler(this.button_pencil_Click);
             // 
             // button_fill
             // 
@@ -70,7 +169,7 @@
             this.button_fill.ForeColor = System.Drawing.Color.White;
             this.button_fill.Image = ((System.Drawing.Image)(resources.GetObject("button_fill.Image")));
             this.button_fill.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_fill.Location = new System.Drawing.Point(397, 32);
+            this.button_fill.Location = new System.Drawing.Point(437, 28);
             this.button_fill.Name = "button_fill";
             this.button_fill.Size = new System.Drawing.Size(90, 103);
             this.button_fill.TabIndex = 2;
@@ -87,7 +186,7 @@
             this.button_color.ForeColor = System.Drawing.Color.White;
             this.button_color.Image = ((System.Drawing.Image)(resources.GetObject("button_color.Image")));
             this.button_color.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_color.Location = new System.Drawing.Point(301, 32);
+            this.button_color.Location = new System.Drawing.Point(341, 28);
             this.button_color.Name = "button_color";
             this.button_color.Size = new System.Drawing.Size(90, 103);
             this.button_color.TabIndex = 1;
@@ -98,11 +197,19 @@
             // picture_color
             // 
             this.picture_color.BackColor = System.Drawing.Color.White;
-            this.picture_color.Location = new System.Drawing.Point(207, 51);
+            this.picture_color.Location = new System.Drawing.Point(266, 60);
             this.picture_color.Name = "picture_color";
             this.picture_color.Size = new System.Drawing.Size(49, 45);
             this.picture_color.TabIndex = 0;
             this.picture_color.UseVisualStyleBackColor = false;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel3.Location = new System.Drawing.Point(330, 20);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(690, 120);
+            this.panel3.TabIndex = 8;
             // 
             // panel2
             // 
@@ -122,88 +229,10 @@
             this.pic.Size = new System.Drawing.Size(1233, 620);
             this.pic.TabIndex = 2;
             this.pic.TabStop = false;
-            // 
-            // button_pencil
-            // 
-            this.button_pencil.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button_pencil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
-            this.button_pencil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
-            this.button_pencil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_pencil.ForeColor = System.Drawing.Color.White;
-            this.button_pencil.Image = ((System.Drawing.Image)(resources.GetObject("button_pencil.Image")));
-            this.button_pencil.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_pencil.Location = new System.Drawing.Point(493, 32);
-            this.button_pencil.Name = "button_pencil";
-            this.button_pencil.Size = new System.Drawing.Size(90, 103);
-            this.button_pencil.TabIndex = 3;
-            this.button_pencil.Text = "Pencil";
-            this.button_pencil.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.button_pencil.UseVisualStyleBackColor = false;
-            // 
-            // button_eraser
-            // 
-            this.button_eraser.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button_eraser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
-            this.button_eraser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
-            this.button_eraser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_eraser.ForeColor = System.Drawing.Color.White;
-            this.button_eraser.Image = ((System.Drawing.Image)(resources.GetObject("button_eraser.Image")));
-            this.button_eraser.Location = new System.Drawing.Point(589, 32);
-            this.button_eraser.Name = "button_eraser";
-            this.button_eraser.Size = new System.Drawing.Size(90, 103);
-            this.button_eraser.TabIndex = 4;
-            this.button_eraser.Text = "Eraser";
-            this.button_eraser.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.button_eraser.UseVisualStyleBackColor = false;
-            // 
-            // button_ellipse
-            // 
-            this.button_ellipse.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button_ellipse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
-            this.button_ellipse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
-            this.button_ellipse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_ellipse.ForeColor = System.Drawing.Color.White;
-            this.button_ellipse.Image = ((System.Drawing.Image)(resources.GetObject("button_ellipse.Image")));
-            this.button_ellipse.Location = new System.Drawing.Point(685, 32);
-            this.button_ellipse.Name = "button_ellipse";
-            this.button_ellipse.Size = new System.Drawing.Size(90, 103);
-            this.button_ellipse.TabIndex = 5;
-            this.button_ellipse.Text = "Ellipse";
-            this.button_ellipse.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.button_ellipse.UseVisualStyleBackColor = false;
-            // 
-            // button_rectangle
-            // 
-            this.button_rectangle.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button_rectangle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
-            this.button_rectangle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
-            this.button_rectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_rectangle.ForeColor = System.Drawing.Color.White;
-            this.button_rectangle.Image = ((System.Drawing.Image)(resources.GetObject("button_rectangle.Image")));
-            this.button_rectangle.Location = new System.Drawing.Point(781, 32);
-            this.button_rectangle.Name = "button_rectangle";
-            this.button_rectangle.Size = new System.Drawing.Size(90, 103);
-            this.button_rectangle.TabIndex = 6;
-            this.button_rectangle.Text = "Rectangle";
-            this.button_rectangle.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.button_rectangle.UseVisualStyleBackColor = false;
-            // 
-            // button_line
-            // 
-            this.button_line.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button_line.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
-            this.button_line.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
-            this.button_line.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_line.ForeColor = System.Drawing.Color.White;
-            this.button_line.Image = ((System.Drawing.Image)(resources.GetObject("button_line.Image")));
-            this.button_line.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_line.Location = new System.Drawing.Point(877, 32);
-            this.button_line.Name = "button_line";
-            this.button_line.Size = new System.Drawing.Size(90, 103);
-            this.button_line.TabIndex = 7;
-            this.button_line.Text = "Line";
-            this.button_line.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.button_line.UseVisualStyleBackColor = false;
+            this.pic.Click += new System.EventHandler(this.pic_Click);
+            this.pic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pic_MouseDown);
+            this.pic.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pic_MouseMove);
+            this.pic.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pic_MouseUp);
             // 
             // Form1
             // 
@@ -218,6 +247,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.color_picker)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
             this.ResumeLayout(false);
 
@@ -236,5 +266,7 @@
         private Button button_ellipse;
         private Button button_eraser;
         private Button button_pencil;
+        private Panel panel3;
+        private PictureBox color_picker;
     }
 }
