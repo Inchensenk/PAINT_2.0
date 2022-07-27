@@ -9,13 +9,14 @@ namespace PAINT_2._0
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            this.Width = 100;
-            this.Height = 800;
+            //this.Width = 100;
+            //this.Height = 800;
             //WindowSize();
             RoundingPen();
+            RoundingEraser();
             bm =new Bitmap(pic.Width,pic.Height);
             g = Graphics.FromImage(bm);
-            g.Clear(Color.White);
+            //g.Clear(Color.White);
             pic.Image = bm;
 
         }
@@ -26,6 +27,7 @@ namespace PAINT_2._0
         Point px, py;
         Pen p = new Pen(Color.Black, 1);
         Pen erase = new Pen(Color.White,10);
+        Brush b = new SolidBrush(Color.Black);
         int index;
         int x, y, sX, sY, cX, cY;
         ColorDialog cd= new ColorDialog();
@@ -73,6 +75,14 @@ namespace PAINT_2._0
                 {
                     g.DrawLine(p, cX, cY, x, y);
                 } 
+                if(index == 7)
+                {
+                    g.FillEllipse(b, cX, cY, sX, sY);
+                }
+                if (index == 8)
+                {
+                    g.FillRectangle(b, cX, cY, sX, sY);
+                }
             }
         }
 
@@ -103,7 +113,7 @@ namespace PAINT_2._0
 
         private void button_fill_Click(object sender, EventArgs e)
         {
-            index = 7;
+            index = 6;
         }
 
         private void color_picker_MouseClick(object sender, MouseEventArgs e)
@@ -146,7 +156,7 @@ namespace PAINT_2._0
 
         private void pic_MouseClick(object sender, MouseEventArgs e)
         {
-            if(index==7)
+            if(index==6)
             {
                 Point point = set_point(pic, e.Location);
                 Fill(bm, point.X, point.Y, color);
@@ -165,10 +175,7 @@ namespace PAINT_2._0
             }
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            p.Width = trackBar1.Value;
-        }
+     
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -190,7 +197,7 @@ namespace PAINT_2._0
                     MessageBox.Show("Невозможно открыть выбранный файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            pic.Enabled = true;
+            
         }
 
         private void Pens_Load(object sender, EventArgs e)
@@ -203,8 +210,23 @@ namespace PAINT_2._0
             RoundingPen();
             bm = new Bitmap(pic.Width, pic.Height);
             g = Graphics.FromImage(bm);
-            g.Clear(Color.White);
+            //g.Clear(Color.White);
             pic.Image = bm;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBarPen_ValueChanged(object sender, EventArgs e)
+        {
+            p.Width = trackBarPen.Value;
+        }
+
+        private void trackBarEraser_ValueChanged(object sender, EventArgs e)
+        {
+            erase.Width = trackBarEraser.Value;
         }
 
         private void pic_MouseMove(object sender, MouseEventArgs e)
@@ -232,6 +254,16 @@ namespace PAINT_2._0
             sY = e.Y-cY;
         }
 
+        private void button_Ellipse_Fill_Click(object sender, EventArgs e)
+        {
+            index = 7;
+        }
+
+        private void button_Rectangle_Fill_Click(object sender, EventArgs e)
+        {
+            index = 8;
+        }
+
         private void pic_MouseUp(object sender, MouseEventArgs e)
         {
             paint = false;
@@ -250,6 +282,14 @@ namespace PAINT_2._0
             if(index==5)
             {
                 g.DrawLine(p, cX, cY, x, y);
+            }
+            if(index==7)
+            {
+                g.FillEllipse(b, cX, cY, sX, sY);
+            }
+            if (index == 8)
+            {
+                g.FillRectangle(b, cX, cY, sX, sY);
             }
         }
 
@@ -275,7 +315,12 @@ namespace PAINT_2._0
         {
             p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             p.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+        }
 
+        private void RoundingEraser()
+        {
+            erase.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            erase.EndCap = System.Drawing.Drawing2D.LineCap.Round;
         }
 
         //private void WindowSize()
