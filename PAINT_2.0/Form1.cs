@@ -1,26 +1,43 @@
 using System.Drawing.Imaging;
 using System.Windows.Input;
 
+
 namespace PAINT_2._0
 {
-    public partial class Pens : Form
+    public partial class Form1 : Form
     {
-        public Pens()
+        public Form1()
         {
             InitializeComponent();
-            StartPosition = FormStartPosition.CenterScreen;
-            //this.Width = 100;
-            //this.Height = 800;
-            //WindowSize();
-            RoundingPen();
-            RoundingEraser();
-            bm =new Bitmap(pic.Width,pic.Height);
-            g = Graphics.FromImage(bm);
-            //g.Clear(Color.White);
-            pic.Image = bm;
+            //StartPosition = FormStartPosition.CenterScreen;
+
+            /*размер по умолчанию для рисования изоброжения*/
+            ////this.Width = 100;
+            ////this.Height = 800;
+            ///
+            ////WindowSize();
+            //RoundingPen();
+            //RoundingEraser();
+
+            //bm =new Bitmap(pic.Width,pic.Height);
+            //g = Graphics.FromImage(bm);
+            ////g.Clear(Color.White);
+            //pic.Image = bm;
 
         }
 
+        enum Index
+        {
+            Clear,
+            Line,
+            Erase,
+            Ellipse,
+            Rectangle,
+            StraitLine,
+            Fill,
+            EllipseFill,
+            RectangleFill
+        }
         Bitmap bm;
         Graphics g;
         bool paint = false;
@@ -28,13 +45,16 @@ namespace PAINT_2._0
         Pen p = new Pen(Color.Black, 1);
         Pen erase = new Pen(Color.White,10);
         Brush b = new SolidBrush(Color.Black);
+        
+       
         int index;
         int x, y, sX, sY, cX, cY;
+
         ColorDialog cd= new ColorDialog();
-        Color color;
+        Color newColor;
         private void pic_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void Section(object sender, MouseEventArgs e)
@@ -44,17 +64,17 @@ namespace PAINT_2._0
 
         private void button_ellipse_Click(object sender, EventArgs e)
         {
-            index = 3;
+            index = (int)Index.Ellipse;
         }
 
         private void button_rectangle_Click(object sender, EventArgs e)
         {
-            index = 4;
+            index = (int)Index.Rectangle;
         }
 
         private void button_line_Click(object sender, EventArgs e)
         {
-            index = 5; 
+            index = (int)Index.StraitLine; 
         }
 
         private void pic_Paint(object sender, PaintEventArgs e)
@@ -63,23 +83,23 @@ namespace PAINT_2._0
 
             if(paint)
             {
-                if (index == 3)
+                if (index == (int)Index.Ellipse)
                 {
                     g.DrawEllipse(p, cX, cY, sX, sY);
                 }
-                if (index == 4)
+                if (index == (int)Index.Rectangle)
                 {
                     g.DrawRectangle(p, cX, cY, sX, sY);
                 }
-                if (index == 5)
+                if (index == (int)Index.StraitLine)
                 {
                     g.DrawLine(p, cX, cY, x, y);
                 } 
-                if(index == 7)
+                if(index == (int)Index.EllipseFill)
                 {
                     g.FillEllipse(b, cX, cY, sX, sY);
                 }
-                if (index == 8)
+                if (index == (int)Index.RectangleFill)
                 {
                     g.FillRectangle(b, cX, cY, sX, sY);
                 }
@@ -90,15 +110,16 @@ namespace PAINT_2._0
         {
             g.Clear(Color.White);
             pic.Image = bm;
-            index = 0;
+            index = (int)Index.Clear;
         }
 
         private void button_color_Click(object sender, EventArgs e)
         {
             cd.ShowDialog();
-            color = cd.Color;
+            newColor = cd.Color;
             picture_color.BackColor=cd.Color;
             p.Color=cd.Color;
+            b = new SolidBrush(newColor);
         }
         static Point set_point(PictureBox pb, Point pt)
         {
@@ -113,15 +134,16 @@ namespace PAINT_2._0
 
         private void button_fill_Click(object sender, EventArgs e)
         {
-            index = 6;
+            index = (int)Index.Fill;
         }
 
         private void color_picker_MouseClick(object sender, MouseEventArgs e)
         {
             Point point = set_point(color_picker, e.Location);
             picture_color.BackColor = ((Bitmap)color_picker.Image).GetPixel(point.X, point.Y);
-            color = picture_color.BackColor;
+            newColor = picture_color.BackColor;
             p.Color = picture_color.BackColor;
+            b = new SolidBrush(newColor);
         }
 
         private void validate(Bitmap bm, Stack<Point>sp, int x, int y, Color old_color, Color new_color)
@@ -156,10 +178,10 @@ namespace PAINT_2._0
 
         private void pic_MouseClick(object sender, MouseEventArgs e)
         {
-            if(index==6)
+            if(index==(int)Index.Fill)
             {
                 Point point = set_point(pic, e.Location);
-                Fill(bm, point.X, point.Y, color);
+                Fill(bm, point.X, point.Y, newColor);
             }
         }
 
@@ -231,16 +253,18 @@ namespace PAINT_2._0
 
         private void pic_MouseMove(object sender, MouseEventArgs e)
         {
+            
             if(paint)
             {
-                if(index==1)
+                //рисование карандашем
+                if(index==(int)Index.Line)
                 {
                     px = e.Location;
                     g.DrawLine(p,px,py);
                     py = px;
                 }
-                
-                if (index == 2)
+                //стерание
+                if (index == (int)Index.Erase)
                 {
                     px = e.Location;
                     g.DrawLine(erase, px, py);
@@ -248,6 +272,8 @@ namespace PAINT_2._0
                 }
             }
             pic.Refresh();
+
+            //начальная и конечная координаты для определения высоты и ширины
             x = e.X;
             y = e.Y;
             sX = e.X-cX;
@@ -256,57 +282,95 @@ namespace PAINT_2._0
 
         private void button_Ellipse_Fill_Click(object sender, EventArgs e)
         {
-            index = 7;
+            index = (int)Index.EllipseFill;
         }
 
         private void button_Rectangle_Fill_Click(object sender, EventArgs e)
         {
-            index = 8;
+            index = (int)Index.RectangleFill;
         }
 
+      
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            index = 9;
+        }
+        
         private void pic_MouseUp(object sender, MouseEventArgs e)
         {
+            //при отпускании мышки рисование завершается
             paint = false;
 
             sX = x - cX;
             sY = y - cY;
 
-            if(index==3)
+            if(index == (int)Index.Ellipse)
             {
                 g.DrawEllipse(p, cX, cY, sX, sY);
             }
-            if(index==4)
+            if(index == (int)Index.Rectangle)
             {
                 g.DrawRectangle(p, cX, cY, sX, sY);
             }
-            if(index==5)
+            if(index == (int)Index.StraitLine)
             {
                 g.DrawLine(p, cX, cY, x, y);
             }
-            if(index==7)
+            if(index == (int)Index.EllipseFill)
             {
                 g.FillEllipse(b, cX, cY, sX, sY);
             }
-            if (index == 8)
+            if (index == (int)Index.RectangleFill)
             {
                 g.FillRectangle(b, cX, cY, sX, sY);
             }
+            /*if (index == 9)
+            {
+                g.DrawString(,);
+            }*/
+        }
+
+        private void color_picker_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void OnbuttonBackgroundColor_Click(object sender, EventArgs e)
+        {
+            cd.ShowDialog();
+            newColor = cd.Color;
+            g.Clear(newColor);
+            pic.Image = bm;
         }
 
         private void button_pencil_Click(object sender, EventArgs e)
         {
-            index = 1;
+            index = (int)Index.Line;
         }
 
         private void button_eraser_Click(object sender, EventArgs e)
         {
-             index=2;
+             index=(int)Index.Erase;
         }
-
+        /// <summary>
+        /// При щелчке по холсту значение pait меняется на true 
+        /// и определяется координата начала рисования 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pic_MouseDown(object sender, MouseEventArgs e)
         {
             paint = true;
             py = e.Location;
+            //координаты x и y для рисования
             cX = e.X;
             cY = e.Y;
         }
@@ -329,6 +393,19 @@ namespace PAINT_2._0
         //    bm= new Bitmap(rectangle.Width, rectangle.Height);
         //    g = Graphics.FromImage(bm);
         //}
+        private void OnFormPaint(object sender, PaintEventArgs e)
+        {
+            StartPosition = FormStartPosition.CenterScreen;
+            //this.Width = 100;
+            //this.Height = 800;
+            //WindowSize();
+            RoundingPen();
+            RoundingEraser();
+            bm = new Bitmap(pic.Width, pic.Height);
+            g = Graphics.FromImage(bm);
+            //g.Clear(Color.White);
+            pic.Image = bm;
+        }
 
 
     }
