@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.OnTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBarPen = new System.Windows.Forms.TrackBar();
@@ -63,6 +64,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel1.Controls.Add(this.OnTextBox);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.trackBarPen);
@@ -81,6 +83,14 @@
             this.panel1.Size = new System.Drawing.Size(1787, 185);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPanelPaint);
+            // 
+            // OnTextBox
+            // 
+            this.OnTextBox.Location = new System.Drawing.Point(506, 140);
+            this.OnTextBox.Name = "OnTextBox";
+            this.OnTextBox.Size = new System.Drawing.Size(455, 23);
+            this.OnTextBox.TabIndex = 18;
+            this.OnTextBox.TextChanged += new System.EventHandler(this.OnTextBoxTextChanged);
             // 
             // label2
             // 
@@ -489,5 +499,6 @@
         private Button OnbuttonBackgroundColor;
         private Label label2;
         private Label label1;
+        private TextBox OnTextBox;
     }
 }

@@ -11,19 +11,7 @@ namespace PAINT_2._0
             InitializeComponent();
            
         }
-
-        enum Index
-        {
-            Clear,
-            Line,
-            Erase,
-            Ellipse,
-            Rectangle,
-            StraitLine,
-            Fill,
-            EllipseFill,
-            RectangleFill
-        }
+                
         Bitmap bm;
         Graphics g;
         bool paint = false;
@@ -43,10 +31,7 @@ namespace PAINT_2._0
             
         }
 
-        private void Section(object sender, MouseEventArgs e)
-        {
 
-        }
 
         private void OnButtonEllipseClick(object sender, EventArgs e)
         {
@@ -73,21 +58,32 @@ namespace PAINT_2._0
                 {
                     g.DrawEllipse(p, cX, cY, sX, sY);
                 }
+
                 if (index == (int)Index.Rectangle)
                 {
                     g.DrawRectangle(p, cX, cY, sX, sY);
                 }
+
                 if (index == (int)Index.StraitLine)
                 {
                     g.DrawLine(p, cX, cY, x, y);
                 } 
+
                 if(index == (int)Index.EllipseFill)
                 {
                     g.FillEllipse(b, cX, cY, sX, sY);
                 }
+
                 if (index == (int)Index.RectangleFill)
                 {
                     g.FillRectangle(b, cX, cY, sX, sY);
+                }
+
+                if (index==(int)Index.Text)
+                {
+                    string text = OnTextBox.Text;
+                    Font font = new Font("Verdana", 30, FontStyle.Italic);
+                    g.DrawString(text,font, new SolidBrush(newColor), cX, cY);
                 }
             }
         }
@@ -282,7 +278,7 @@ namespace PAINT_2._0
 
         private void OnButtonTextClick(object sender, EventArgs e)
         {
-            index = 9;
+            index = (int)Index.Text;
         }
         
         private void OnPicMouseUp(object sender, MouseEventArgs e)
@@ -313,10 +309,12 @@ namespace PAINT_2._0
             {
                 g.FillRectangle(b, cX, cY, sX, sY);
             }
-            /*if (index == 9)
+            if (index == (int)Index.Text)
             {
-                g.DrawString(,);
-            }*/
+                string text = OnTextBox.Text;
+                Font font = new Font("Verdana", 30, FontStyle.Italic);
+                g.DrawString(text, font, new SolidBrush(newColor), cX, cY);
+            }
         }
 
         private void color_picker_Click(object sender, EventArgs e)
@@ -337,6 +335,11 @@ namespace PAINT_2._0
             newColor = cd.Color;
             g.Clear(newColor);
             pic.Image = bm;
+        }
+
+        private void OnTextBoxTextChanged(object sender, EventArgs e)
+        {
+            
         }
 
         private void OnButtonPencilClick(object sender, EventArgs e)
