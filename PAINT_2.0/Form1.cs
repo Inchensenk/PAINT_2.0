@@ -79,12 +79,16 @@ namespace PAINT_2._0
                     g.FillRectangle(b, cX, cY, sX, sY);
                 }
 
-                if (index==(int)Index.Text)
-                {
-                    string text = OnTextBox.Text;
-                    Font font = new Font("Verdana", 30, FontStyle.Italic);
-                    g.DrawString(text,font, new SolidBrush(newColor), cX, cY);
-                }
+                //if (index==(int)Index.Text)
+                //{
+                //    if(OnTextBox.Text=="")
+                //    {
+                //        MessageBox.Show("");
+                //    }
+                //    string text = OnTextBox.Text;
+                //    Font font = new Font("Verdana", 30, FontStyle.Italic);
+                //    g.DrawString(text,font, new SolidBrush(newColor), cX, cY);
+                //}
             }
         }
 
@@ -311,6 +315,10 @@ namespace PAINT_2._0
             }
             if (index == (int)Index.Text)
             {
+                if (OnTextBox.Text == "")
+                {
+                    MessageBox.Show("ньхайю! мер дюммшу дкъ пхянбюмхъ!\nббедхре рейяр б рейярнбне онке");
+                }
                 string text = OnTextBox.Text;
                 Font font = new Font("Verdana", 30, FontStyle.Italic);
                 g.DrawString(text, font, new SolidBrush(newColor), cX, cY);
@@ -340,6 +348,16 @@ namespace PAINT_2._0
         private void OnTextBoxTextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void OnButtonFontClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void OnButtonPencilClick(object sender, EventArgs e)

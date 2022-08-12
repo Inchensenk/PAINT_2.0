@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.OnTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -64,6 +66,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.OnTextBox);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -84,11 +88,31 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPanelPaint);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(334, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 15);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Color";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1195, 133);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 15);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Text input field";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
             // OnTextBox
             // 
-            this.OnTextBox.Location = new System.Drawing.Point(506, 140);
+            this.OnTextBox.Location = new System.Drawing.Point(1195, 149);
+            this.OnTextBox.Multiline = true;
             this.OnTextBox.Name = "OnTextBox";
-            this.OnTextBox.Size = new System.Drawing.Size(455, 23);
+            this.OnTextBox.Size = new System.Drawing.Size(455, 33);
             this.OnTextBox.TabIndex = 18;
             this.OnTextBox.TextChanged += new System.EventHandler(this.OnTextBoxTextChanged);
             // 
@@ -96,7 +120,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.AliceBlue;
-            this.label2.Location = new System.Drawing.Point(273, 164);
+            this.label2.Location = new System.Drawing.Point(618, 163);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 15);
             this.label2.TabIndex = 17;
@@ -107,7 +131,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.AliceBlue;
-            this.label1.Location = new System.Drawing.Point(373, 164);
+            this.label1.Location = new System.Drawing.Point(718, 163);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 15);
             this.label1.TabIndex = 16;
@@ -117,7 +141,7 @@
             // trackBarPen
             // 
             this.trackBarPen.BackColor = System.Drawing.Color.AliceBlue;
-            this.trackBarPen.Location = new System.Drawing.Point(268, 134);
+            this.trackBarPen.Location = new System.Drawing.Point(613, 133);
             this.trackBarPen.Name = "trackBarPen";
             this.trackBarPen.Size = new System.Drawing.Size(95, 45);
             this.trackBarPen.TabIndex = 10;
@@ -127,9 +151,9 @@
             // trackBarEraser
             // 
             this.trackBarEraser.BackColor = System.Drawing.Color.AliceBlue;
-            this.trackBarEraser.Location = new System.Drawing.Point(369, 134);
+            this.trackBarEraser.Location = new System.Drawing.Point(714, 133);
             this.trackBarEraser.Name = "trackBarEraser";
-            this.trackBarEraser.Size = new System.Drawing.Size(90, 45);
+            this.trackBarEraser.Size = new System.Drawing.Size(95, 45);
             this.trackBarEraser.TabIndex = 3;
             this.trackBarEraser.ValueChanged += new System.EventHandler(this.OnTrackBarEraserValueChanged);
             // 
@@ -137,7 +161,7 @@
             // 
             this.color_picker.Cursor = System.Windows.Forms.Cursors.Hand;
             this.color_picker.Image = ((System.Drawing.Image)(resources.GetObject("color_picker.Image")));
-            this.color_picker.Location = new System.Drawing.Point(3, 3);
+            this.color_picker.Location = new System.Drawing.Point(37, 7);
             this.color_picker.Name = "color_picker";
             this.color_picker.Size = new System.Drawing.Size(248, 128);
             this.color_picker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -155,7 +179,7 @@
             this.button_ellipse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_ellipse.ForeColor = System.Drawing.Color.White;
             this.button_ellipse.Image = ((System.Drawing.Image)(resources.GetObject("button_ellipse.Image")));
-            this.button_ellipse.Location = new System.Drawing.Point(657, 15);
+            this.button_ellipse.Location = new System.Drawing.Point(810, 15);
             this.button_ellipse.Name = "button_ellipse";
             this.button_ellipse.Size = new System.Drawing.Size(90, 103);
             this.button_ellipse.TabIndex = 5;
@@ -173,7 +197,7 @@
             this.button_eraser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_eraser.ForeColor = System.Drawing.Color.White;
             this.button_eraser.Image = ((System.Drawing.Image)(resources.GetObject("button_eraser.Image")));
-            this.button_eraser.Location = new System.Drawing.Point(561, 15);
+            this.button_eraser.Location = new System.Drawing.Point(714, 15);
             this.button_eraser.Name = "button_eraser";
             this.button_eraser.Size = new System.Drawing.Size(90, 103);
             this.button_eraser.TabIndex = 4;
@@ -192,7 +216,7 @@
             this.button_pencil.ForeColor = System.Drawing.Color.White;
             this.button_pencil.Image = ((System.Drawing.Image)(resources.GetObject("button_pencil.Image")));
             this.button_pencil.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_pencil.Location = new System.Drawing.Point(465, 15);
+            this.button_pencil.Location = new System.Drawing.Point(618, 15);
             this.button_pencil.Name = "button_pencil";
             this.button_pencil.Size = new System.Drawing.Size(90, 103);
             this.button_pencil.TabIndex = 3;
@@ -211,7 +235,7 @@
             this.button_fill.ForeColor = System.Drawing.Color.White;
             this.button_fill.Image = ((System.Drawing.Image)(resources.GetObject("button_fill.Image")));
             this.button_fill.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_fill.Location = new System.Drawing.Point(369, 15);
+            this.button_fill.Location = new System.Drawing.Point(522, 15);
             this.button_fill.Name = "button_fill";
             this.button_fill.Size = new System.Drawing.Size(90, 103);
             this.button_fill.TabIndex = 2;
@@ -230,7 +254,7 @@
             this.button_color.ForeColor = System.Drawing.Color.White;
             this.button_color.Image = ((System.Drawing.Image)(resources.GetObject("button_color.Image")));
             this.button_color.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.button_color.Location = new System.Drawing.Point(273, 15);
+            this.button_color.Location = new System.Drawing.Point(426, 15);
             this.button_color.Name = "button_color";
             this.button_color.Size = new System.Drawing.Size(90, 103);
             this.button_color.TabIndex = 1;
@@ -242,7 +266,7 @@
             // picture_color
             // 
             this.picture_color.BackColor = System.Drawing.Color.White;
-            this.picture_color.Location = new System.Drawing.Point(3, 140);
+            this.picture_color.Location = new System.Drawing.Point(328, 51);
             this.picture_color.Name = "picture_color";
             this.picture_color.Size = new System.Drawing.Size(49, 45);
             this.picture_color.TabIndex = 0;
@@ -261,9 +285,9 @@
             this.panel3.Controls.Add(this.button_save);
             this.panel3.Controls.Add(this.button_rectangle);
             this.panel3.Controls.Add(this.button_line);
-            this.panel3.Location = new System.Drawing.Point(262, 7);
+            this.panel3.Location = new System.Drawing.Point(416, 7);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1486, 120);
+            this.panel3.Size = new System.Drawing.Size(1358, 120);
             this.panel3.TabIndex = 8;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3Paint);
             // 
@@ -281,20 +305,22 @@
             this.OnbuttonBackgroundColor.Name = "OnbuttonBackgroundColor";
             this.OnbuttonBackgroundColor.Size = new System.Drawing.Size(90, 103);
             this.OnbuttonBackgroundColor.TabIndex = 15;
-            this.OnbuttonBackgroundColor.Text = "Background Color";
-            this.OnbuttonBackgroundColor.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.OnbuttonBackgroundColor.Text = "Backgr. Color";
+            this.OnbuttonBackgroundColor.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.OnbuttonBackgroundColor.UseVisualStyleBackColor = false;
             this.OnbuttonBackgroundColor.Click += new System.EventHandler(this.OnbuttonBackgroundColor_Click);
             // 
             // OnTextButton
             // 
             this.OnTextButton.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.OnTextButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("OnTextButton.BackgroundImage")));
+            this.OnTextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.OnTextButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.OnTextButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
             this.OnTextButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
             this.OnTextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OnTextButton.ForeColor = System.Drawing.Color.White;
-            this.OnTextButton.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.OnTextButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.OnTextButton.Location = new System.Drawing.Point(779, 8);
             this.OnTextButton.Name = "OnTextButton";
             this.OnTextButton.Size = new System.Drawing.Size(90, 103);
@@ -307,6 +333,8 @@
             // button_Rectangle_Fill
             // 
             this.button_Rectangle_Fill.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_Rectangle_Fill.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_Rectangle_Fill.BackgroundImage")));
+            this.button_Rectangle_Fill.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.button_Rectangle_Fill.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button_Rectangle_Fill.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
             this.button_Rectangle_Fill.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
@@ -330,7 +358,6 @@
             this.button_background.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_background.ForeColor = System.Drawing.Color.White;
             this.button_background.Image = ((System.Drawing.Image)(resources.GetObject("button_background.Image")));
-            this.button_background.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.button_background.Location = new System.Drawing.Point(1163, 8);
             this.button_background.Name = "button_background";
             this.button_background.Size = new System.Drawing.Size(90, 103);
@@ -343,11 +370,14 @@
             // button_Ellipse_Fill
             // 
             this.button_Ellipse_Fill.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button_Ellipse_Fill.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_Ellipse_Fill.BackgroundImage")));
+            this.button_Ellipse_Fill.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.button_Ellipse_Fill.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button_Ellipse_Fill.FlatAppearance.MouseDownBackColor = System.Drawing.Color.MediumSlateBlue;
             this.button_Ellipse_Fill.FlatAppearance.MouseOverBackColor = System.Drawing.Color.CornflowerBlue;
             this.button_Ellipse_Fill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Ellipse_Fill.ForeColor = System.Drawing.Color.White;
+            this.button_Ellipse_Fill.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button_Ellipse_Fill.Location = new System.Drawing.Point(491, 8);
             this.button_Ellipse_Fill.Name = "button_Ellipse_Fill";
             this.button_Ellipse_Fill.Size = new System.Drawing.Size(90, 103);
@@ -500,5 +530,7 @@
         private Label label2;
         private Label label1;
         private TextBox OnTextBox;
+        private Label label3;
+        private Label label4;
     }
 }
