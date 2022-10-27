@@ -86,7 +86,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1787, 185);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPanelPaint);
             // 
             // label4
             // 
@@ -105,16 +104,14 @@
             this.label3.Size = new System.Drawing.Size(85, 15);
             this.label3.TabIndex = 19;
             this.label3.Text = "Text input field";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // OnTextBox
             // 
-            this.OnTextBox.Location = new System.Drawing.Point(1195, 149);
+            this.OnTextBox.Location = new System.Drawing.Point(1195, 150);
             this.OnTextBox.Multiline = true;
             this.OnTextBox.Name = "OnTextBox";
             this.OnTextBox.Size = new System.Drawing.Size(455, 33);
             this.OnTextBox.TabIndex = 18;
-            this.OnTextBox.TextChanged += new System.EventHandler(this.OnTextBoxTextChanged);
             // 
             // label2
             // 
@@ -161,13 +158,12 @@
             // 
             this.color_picker.Cursor = System.Windows.Forms.Cursors.Hand;
             this.color_picker.Image = ((System.Drawing.Image)(resources.GetObject("color_picker.Image")));
-            this.color_picker.Location = new System.Drawing.Point(37, 7);
+            this.color_picker.Location = new System.Drawing.Point(12, 7);
             this.color_picker.Name = "color_picker";
             this.color_picker.Size = new System.Drawing.Size(248, 128);
             this.color_picker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.color_picker.TabIndex = 9;
             this.color_picker.TabStop = false;
-            this.color_picker.Click += new System.EventHandler(this.color_picker_Click);
             this.color_picker.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnColorPickerMouseClick);
             // 
             // button_ellipse
@@ -266,12 +262,11 @@
             // picture_color
             // 
             this.picture_color.BackColor = System.Drawing.Color.White;
-            this.picture_color.Location = new System.Drawing.Point(328, 51);
+            this.picture_color.Location = new System.Drawing.Point(327, 52);
             this.picture_color.Name = "picture_color";
             this.picture_color.Size = new System.Drawing.Size(49, 45);
             this.picture_color.TabIndex = 0;
             this.picture_color.UseVisualStyleBackColor = false;
-            this.picture_color.Click += new System.EventHandler(this.OnPictureColorClick);
             // 
             // panel3
             // 
@@ -289,7 +284,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1358, 120);
             this.panel3.TabIndex = 8;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel3Paint);
             // 
             // OnbuttonBackgroundColor
             // 
@@ -471,7 +465,6 @@
             this.pic.Size = new System.Drawing.Size(1787, 627);
             this.pic.TabIndex = 2;
             this.pic.TabStop = false;
-            this.pic.Click += new System.EventHandler(this.OnPicClick);
             this.pic.Paint += new System.Windows.Forms.PaintEventHandler(this.PicPaint);
             this.pic.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseClick);
             this.pic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseDown);

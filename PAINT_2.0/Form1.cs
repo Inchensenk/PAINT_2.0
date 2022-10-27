@@ -8,12 +8,11 @@ namespace PAINT_2._0
     {
         public Form1()
         {
-            InitializeComponent();
-           
+            InitializeComponent();  
         }
                 
-        Bitmap bm;
-        Graphics g;
+        Bitmap bm = null!;
+        Graphics g = null!;
         bool paint = false;
         Point px, py;
         Pen p = new Pen(Color.Black, 1);
@@ -26,10 +25,6 @@ namespace PAINT_2._0
 
         ColorDialog cd= new ColorDialog();
         Color newColor;
-        private void OnPicClick(object sender, EventArgs e)
-        {
-            
-        }
 
 
 
@@ -114,10 +109,7 @@ namespace PAINT_2._0
             float pY = 1f * pb.Image.Height / pb.Height;
             return new Point((int)(pt.X*pX), (int)(pt.Y*pY));
         }
-        private void OnPictureColorClick(object sender, EventArgs e)
-        {
 
-        }
 
         private void OnButtonFillClick(object sender, EventArgs e)
         {
@@ -135,7 +127,7 @@ namespace PAINT_2._0
 
         private void Validate(Bitmap bm, Stack<Point>sp, int x, int y, Color old_color, Color new_color)
         {
-            Color cx =bm.GetPixel(x, y);
+            Color cx = bm.GetPixel(x, y);
             if(cx==old_color)
             {
                 sp.Push(new Point(x,y));
@@ -182,13 +174,6 @@ namespace PAINT_2._0
                 btm.Save(sfd.FileName, ImageFormat.Jpeg);
                 MessageBox.Show("Image Saved Sucessfully...");
             }
-        }
-
-     
-
-        private void OnPanelPaint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void OnButtonBackgroundClick(object sender, EventArgs e)
@@ -325,18 +310,7 @@ namespace PAINT_2._0
             }
         }
 
-        private void color_picker_Click(object sender, EventArgs e)
-        {
-
-        }
-
         
-
-        private void Panel3Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void OnbuttonBackgroundColor_Click(object sender, EventArgs e)
         {
             cd.ShowDialog();
@@ -345,20 +319,6 @@ namespace PAINT_2._0
             pic.Image = bm;
         }
 
-        private void OnTextBoxTextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void OnButtonFontClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void OnButtonPencilClick(object sender, EventArgs e)
         {
