@@ -54,13 +54,13 @@
             this.button_save = new System.Windows.Forms.Button();
             this.button_rectangle = new System.Windows.Forms.Button();
             this.button_line = new System.Windows.Forms.Button();
-            this.pic = new System.Windows.Forms.PictureBox();
+            this.MainPictureBox = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEraser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.color_picker)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MainPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -454,30 +454,30 @@
             this.button_line.UseVisualStyleBackColor = false;
             this.button_line.Click += new System.EventHandler(this.OnButtonLineClick);
             // 
-            // pic
+            // MainPictureBox
             // 
-            this.pic.BackColor = System.Drawing.Color.White;
-            this.pic.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pic.Location = new System.Drawing.Point(0, 185);
-            this.pic.MinimumSize = new System.Drawing.Size(1271, 627);
-            this.pic.Name = "pic";
-            this.pic.Size = new System.Drawing.Size(1787, 627);
-            this.pic.TabIndex = 2;
-            this.pic.TabStop = false;
-            this.pic.Click += new System.EventHandler(this.pic_Click);
-            this.pic.Paint += new System.Windows.Forms.PaintEventHandler(this.PicPaint);
-            this.pic.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseClick);
-            this.pic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseDown);
-            this.pic.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseMove);
-            this.pic.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseUp);
+            this.MainPictureBox.BackColor = System.Drawing.Color.White;
+            this.MainPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPictureBox.Location = new System.Drawing.Point(0, 185);
+            this.MainPictureBox.MinimumSize = new System.Drawing.Size(1271, 627);
+            this.MainPictureBox.Name = "MainPictureBox";
+            this.MainPictureBox.Size = new System.Drawing.Size(1787, 627);
+            this.MainPictureBox.TabIndex = 2;
+            this.MainPictureBox.TabStop = false;
+            this.MainPictureBox.Click += new System.EventHandler(this.pic_Click);
+            this.MainPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.MainPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseClick);
+            this.MainPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseDown);
+            this.MainPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseMove);
+            this.MainPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseUp);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1787, 607);
-            this.Controls.Add(this.pic);
+            this.Controls.Add(this.MainPictureBox);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(682, 349);
             this.Name = "Form1";
@@ -492,7 +492,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEraser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.color_picker)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MainPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -501,7 +501,7 @@
         #endregion
 
         private Panel panel1;
-        private PictureBox pic;
+        private PictureBox MainPictureBox;
         private Button button_color;
         private Button picture_color;
         private Button button_fill;
