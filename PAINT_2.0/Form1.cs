@@ -7,19 +7,30 @@ using System.Windows.Input;
 
 namespace PAINT_2._0
 {
-    
+
+    public delegate void RoundDelegate();
     public partial class Form1 : Form
     {
-
+        /// <summary>
+        /// Делегат хранящий отрисованные обьекты
+        /// </summary>
         private Action<Graphics> _onPaint;
+
+        /// <summary>
+        /// Делегат хранящий объект для предпросмотра
+        /// </summary>
         private Action<Graphics> _onPaintPreview;
+
+        /// <summary>
+        /// Делегат хранящий текущее действие
+        /// </summary>
         private Action _currentAction;
-        //private delegate void PaintDelegate();
+     
 
         public Form1()
         {
             InitializeComponent();
-           
+            Rounding();
         }
 
         /// <summary>
@@ -31,7 +42,7 @@ namespace PAINT_2._0
         /// <summary>
         /// Инкапсулирует поверхность рисования GDI+. Этот класс не наследуется.
         /// </summary>
-        //Graphics g;
+        Graphics g;
 
         /// <summary>
         /// Флаг обозначающий действие рисования
@@ -41,7 +52,7 @@ namespace PAINT_2._0
         /// <summary>
         /// Представляет упорядоченную пару целых чисел — координат Х и Y, определяющую точку на двумерной плоскости.
         /// </summary>
-        Point px, startCursorPosition;
+        Point px, py;
 
         /// <summary>
         /// Определяет объект, используемый для рисования прямых линий и кривых. Этот класс не наследуется.
@@ -60,10 +71,6 @@ namespace PAINT_2._0
         /// </summary>
         Brush b = new SolidBrush(Color.Black);
         
-        /// <summary>
-        /// Переменная, которая хранит выбранное значение которое будет интерпритироваться с обьектом рисования
-        /// </summary>
-        int index;
         int x, y, sX, sY, cX, cY;
 
         
@@ -71,12 +78,12 @@ namespace PAINT_2._0
         /// Представляет общее диалоговое окно, в котором отображаются доступные цвета и элементы управления, 
         /// позволяющие пользователю определять собственные цвета.
         /// </summary>
-        ColorDialog cd = new ColorDialog();
+        ColorDialog colorDialog = new ColorDialog();
 
         Color newColor;
 
 
-        //*****************************************Кнопки
+
         private void OnButtonEllipseClick(object sender, EventArgs e)
         {
             _currentAction = DrawEllipseOrPreview;
@@ -103,42 +110,61 @@ namespace PAINT_2._0
             MainPictureBox.Image = bm;    
         }
 
+        //
         private void OnButtonColorClick(object sender, EventArgs e)
         {
-            cd.ShowDialog();
-            newColor = cd.Color;
-            picture_color.BackColor = cd.Color;
-            p.Color = cd.Color;
+            colorDialog.ShowDialog();
+            newColor = colorDialog.Color;
+            picture_color.BackColor = colorDialog.Color;
+            p.Color = colorDialog.Color;
             b = new SolidBrush(newColor);
         }
 
         private void OnButtonFillClick(object sender, EventArgs e)
         {
-            index = (int)Index.Fill;
+            //index = (int)Index.Fill;
+            _currentAction = Filling;
         }
 
         private void OnPicMouseClick(object sender, MouseEventArgs e)
         {
-            if (index == (int)Index.Fill)
+            if (_currentAction == Filling)
             {
                 Point point = SetPoint(MainPictureBox, e.Location);
                 Fill(bm, point.X, point.Y, newColor);
+                _currentAction?.Invoke();
+                
             }
+            MainPictureBox.Invalidate();
         }
 
+        /// <summary>
+        /// Сохранение изображения
+        /// </summary>
         private void OnButtonSaveClick(object sender, EventArgs e)
         {
-            var sfd = new SaveFileDialog();
-            sfd.Filter = "Image(*.jpg)|*.jpg|(*.*)|*.*";
-            if (sfd.ShowDialog() == DialogResult.OK)
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Image(*.jpg)|*.jpg|(*.*)|*.*";
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                Bitmap btm = bm.Clone(new Rectangle(0, 0, MainPictureBox.Width, MainPictureBox.Height), bm.PixelFormat);
-                btm.Save(sfd.FileName, ImageFormat.Jpeg);
-                MessageBox.Show("Image Saved Sucessfully...");
+                int width = Convert.ToInt32(MainPictureBox.Width);
+                int height = Convert.ToInt32(MainPictureBox.Height);
+                using (Bitmap bmp = new Bitmap(width, height))
+                {
+                    MainPictureBox.DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
+                    bmp.Save(dialog.FileName, ImageFormat.Jpeg);
+                    MessageBox.Show("Image Saved Sucessfully...");
+                }
             }
         }
 
         private void OnButtonBackgroundClick(object sender, EventArgs e)
+        {
+            _currentAction += Background;
+            _currentAction.Invoke();
+        }
+
+        void Background()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image Files(*.BMP;*.JPG;*GIF;*PNG)|*.BMP;*.JPG;*GIF;*PNG|ALL FILES (*.*)|*.*";
@@ -154,29 +180,30 @@ namespace PAINT_2._0
                     MessageBox.Show("Невозможно открыть выбранный файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
+
 
         private void OnButtonPencilClick(object sender, EventArgs e)
         {
-            index = (int)Index.Line;
+            _currentAction = DrawLine;
         }
 
         private void OnButtonEraserClick(object sender, EventArgs e)
         {
-            index = (int)Index.Erase;
+            _currentAction = Erase;
         }
+
+
 
         private void OnButtonEllipseFillClick(object sender, EventArgs e)
         {
-            index = (int)Index.EllipseFill;
+            _currentAction = DrawEllipseFillOrPreview;
         }
 
 
         private void OnButtonRectangleFillClick(object sender, EventArgs e)
         {
-            index = (int)Index.RectangleFill;
-
+            _currentAction = DrawFillRectangleOrPreview;
         }
 
         private void OnButtonTextClick(object sender, EventArgs e)
@@ -184,18 +211,45 @@ namespace PAINT_2._0
             _currentAction = DrawText;
         }
 
+        private void Filling()
+        {
+
+        }
+
+        private void Erase()
+        {
+            Point startPoint = new Point(px.X, px.Y);
+            Point endPoint = new Point(py.X, py.Y);
+            Pen pen = erase.Clone() as Pen;
+
+            _onPaintPreview = null;
+
+            _onPaint += (graphics) => { graphics.DrawLine(pen, startPoint, endPoint); };
+
+            MainPictureBox.Invalidate();
+        }
 
 
+        private void DrawLine()
+        {
 
+            Pen pen = p.Clone() as Pen;
+            Point startPoint = new Point(px.X, px.Y);
+            Point endPoint = new Point(py.X, py.Y);
 
+            _onPaintPreview = null;
 
+            _onPaint += (graphics) => { graphics.DrawLine(pen, startPoint, endPoint); };   
+
+            MainPictureBox.Invalidate();
+        }
 
 
 
         private void DrawStraightLineOrPreview()
         {
             Pen pen = p.Clone() as Pen;
-            Point startPoint = new Point(startCursorPosition.X, startCursorPosition.Y);
+            Point startPoint = new Point(py.X, py.Y);
             Point endPoint = new Point(x, y);
             _onPaintPreview = null;
             if (isPaint)
@@ -215,8 +269,8 @@ namespace PAINT_2._0
         private void DrawRectangleOrPreview()
         {
             Pen pen = p.Clone() as Pen;
-            Point startPoint = new Point(startCursorPosition.X, startCursorPosition.Y);
-            Point endPoint = new Point(x, y);
+            Point startPoint = new Point(cX, cY);
+            Point endPoint = new Point(sX, sY);
             _onPaintPreview = null;
 
             if (isPaint)
@@ -232,8 +286,8 @@ namespace PAINT_2._0
         private void DrawEllipseOrPreview()
         {
             Pen pen = p.Clone() as Pen;
-            Point startPoint = new Point(startCursorPosition.X, startCursorPosition.Y);
-            Point endPoint = new Point(x, y);
+            Point startPoint = new Point(cX, cY);
+            Point endPoint = new Point(sX, sY);
             _onPaintPreview = null;
             if (isPaint)
             {
@@ -249,9 +303,8 @@ namespace PAINT_2._0
         private void DrawEllipseFillOrPreview()
         {
             Brush brush = b.Clone() as Brush;
-            Point startPoint = new Point(startCursorPosition.X, startCursorPosition.Y);
-            Point endPoint = new Point(x, y);
-
+            Point startPoint = new Point(cX, cY);
+            Point endPoint = new Point(sX, sY);
             _onPaintPreview = null;
             if (isPaint)
             {
@@ -263,34 +316,46 @@ namespace PAINT_2._0
             }
             MainPictureBox.Invalidate();
         }
+
+        private void DrawFillRectangleOrPreview()
+        {
+            Brush brush = b.Clone() as Brush;
+            Point startPoint = new Point(cX, cY);
+            Point endPoint = new Point(sX, sY);
+            _onPaintPreview = null;
+            if (isPaint)
+            {
+                _onPaintPreview += (graphics) => { graphics.FillRectangle(brush, startPoint.X, startPoint.Y, endPoint.X, endPoint.Y); };
+            }
+            else
+            {
+                _onPaint += (graphics) => { graphics.FillRectangle(brush, startPoint.X, startPoint.Y, endPoint.X, endPoint.Y); };
+            }
+            MainPictureBox.Invalidate();
+        }
         private void DrawText() 
         {
             Brush brush = b.Clone() as Brush;
-            Point startPoint = new Point(startCursorPosition.X, startCursorPosition.Y);
+            Point startPoint = new Point(cX, cY);
             string text = OnTextBox.Text;
             Font font = new Font("Verdana", 30, FontStyle.Italic);
 
             _onPaintPreview = null;
 
-            //if (OnTextBox.Text == "")
-            //{
-            //    MessageBox.Show("Ошибка! Для продолжения введите текст в текстовое поле");
-            //}
-
-
-            if (isPaint)
+            if (OnTextBox.Text == "")
             {
-                _onPaintPreview += (graphics) => { graphics.DrawString(text, font, new SolidBrush(newColor), startCursorPosition.X, startCursorPosition.Y); };
+                MessageBox.Show("Ошибка! Для продолжения введите текст в текстовое поле");
             }
-            else
-            {
-                _onPaint += (graphics) => { graphics.DrawString(text, font, new SolidBrush(newColor), startCursorPosition.X, startCursorPosition.Y); };
-            }
-            MainPictureBox.Invalidate();
+
+                _onPaint += (graphics) => { graphics.DrawString(text, font, new SolidBrush(newColor), startPoint.X, startPoint.Y); };
+      
+                MainPictureBox.Invalidate();
+    
+            
 
         }
 
-        /*-------------------------------------------------------------------------------------------------------------------------*/
+
 
         static Point SetPoint(PictureBox pb, Point pt)
         {
@@ -300,8 +365,13 @@ namespace PAINT_2._0
         }
 
 
-        
 
+        /// <summary>
+        /// Отображение выбранного цвета на кнопке picture_color
+        /// и смена цвета у экземпляра класса Pen, Brush
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnColorPickerMouseClick(object sender, MouseEventArgs e)
         {
             Point point = SetPoint(color_picker, e.Location);
@@ -343,46 +413,44 @@ namespace PAINT_2._0
 
         
 
-        private void Pens_Load(object sender, EventArgs e)
-        {
 
-        }
-
-        private void PensResize(object sender, EventArgs e)
-        {
-            RoundingPen();
-            bm = new Bitmap(MainPictureBox.Width, MainPictureBox.Height);
-            //g = Graphics.FromImage(bm);
-            //g.Clear(Color.White);
-            MainPictureBox.Image = bm;
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Толщина фигур, рисуемых с помощью класса Pen
+        /// </summary>
         private void OnTrackBarPenValueChanged(object sender, EventArgs e)
         {
             p.Width = trackBarPen.Value;
         }
 
+        /// <summary>
+        /// Толщина стерки
+        /// </summary>
         private void OnTrackBarEraserValueChanged(object sender, EventArgs e)
         {
             erase.Width = trackBarEraser.Value;
         }
 
-        
         private void OnPicMouseMove(object sender, MouseEventArgs e)
         {
 
             if (isPaint)
             {
-                ////конечные координаты
                 x = e.X;
                 y = e.Y;
-                _currentAction?.Invoke();
-                
+                sX = e.X - cX;
+                sY = e.Y - cY;
+
+                if (_currentAction == DrawLine || _currentAction== Erase)
+                {
+                    px = e.Location;
+                    _currentAction?.Invoke();
+                    py = px;
+                }
+                else
+                {
+                    _currentAction?.Invoke();
+                }
+               
             }     
         }
 
@@ -392,40 +460,35 @@ namespace PAINT_2._0
         private void OnPicMouseUp(object sender, MouseEventArgs e)
         {
             isPaint = false;
+            sX = x - cX;
+            sY = y - cY;
+
             _currentAction?.Invoke();
-        }
-
-        private void pic_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void OnbuttonBackgroundColor_Click(object sender, EventArgs e)
         {
-            cd.ShowDialog();
-            newColor = cd.Color;
-            //g.Clear(newColor);
+            colorDialog.ShowDialog();
+            newColor = colorDialog.Color;
+            _onPaint+= (graphics) => { graphics.Clear(newColor); };
             MainPictureBox.Image = bm;
         }
 
 
-
-
-
-
-        private void RoundingPen()
+        /// <summary>
+        /// Скругление линий для рисования карандашем и стеркой
+        /// </summary>
+        private void Rounding()
         {
-            p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
-            p.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            RoundDelegate round = () =>
+            {
+                p.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+                p.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+                erase.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+                erase.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            };
+            round();
         }
-
-        private void RoundingEraser()
-        {
-            erase.StartCap = System.Drawing.Drawing2D.LineCap.Round;
-            erase.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-        }
-
-
 
 
 
@@ -433,17 +496,18 @@ namespace PAINT_2._0
         private void OnPicMouseDown(object sender, MouseEventArgs e)
         {
             isPaint = true;
-            startCursorPosition = e.Location;
+            py = e.Location;
+            
             //координаты x и y для рисования
-            //cX = e.X;
-            //cY = e.Y;
+            cX = e.X;
+            cY = e.Y;
         }
 
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            _onPaint?.Invoke(e.Graphics);
             _onPaintPreview?.Invoke(e.Graphics);
+            _onPaint?.Invoke(e.Graphics);   
         }
 
     }

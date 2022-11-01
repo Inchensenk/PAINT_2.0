@@ -142,7 +142,6 @@
             this.trackBarPen.Name = "trackBarPen";
             this.trackBarPen.Size = new System.Drawing.Size(95, 45);
             this.trackBarPen.TabIndex = 10;
-            this.trackBarPen.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             this.trackBarPen.ValueChanged += new System.EventHandler(this.OnTrackBarPenValueChanged);
             // 
             // trackBarEraser
@@ -465,7 +464,6 @@
             this.MainPictureBox.Size = new System.Drawing.Size(1787, 627);
             this.MainPictureBox.TabIndex = 2;
             this.MainPictureBox.TabStop = false;
-            this.MainPictureBox.Click += new System.EventHandler(this.pic_Click);
             this.MainPictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             this.MainPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseClick);
             this.MainPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnPicMouseDown);
@@ -484,8 +482,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Paint 2.0";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Pens_Load);
-            this.Resize += new System.EventHandler(this.PensResize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPen)).EndInit();
