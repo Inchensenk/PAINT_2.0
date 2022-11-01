@@ -102,8 +102,6 @@ namespace PAINT_2._0
         /// <summary>
         /// Полная очистка окна рисования
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnButtonClearClick(object sender, EventArgs e)
         {
             _onPaint += (graphics) => { graphics.Clear(Color.White); };
@@ -183,39 +181,57 @@ namespace PAINT_2._0
         }
 
 
+        /// <summary>
+        /// Рисование карандашем
+        /// </summary>
         private void OnButtonPencilClick(object sender, EventArgs e)
         {
             _currentAction = DrawLine;
         }
 
+        /// <summary>
+        /// Стирание изображения стеркой
+        /// </summary>
         private void OnButtonEraserClick(object sender, EventArgs e)
         {
             _currentAction = Erase;
         }
 
-
-
+        /// <summary>
+        /// Рисование заполненного эллипса
+        /// </summary>
         private void OnButtonEllipseFillClick(object sender, EventArgs e)
         {
             _currentAction = DrawEllipseFillOrPreview;
         }
 
-
+        /// <summary>
+        /// Рисование абриса прямоугольника
+        /// </summary>
         private void OnButtonRectangleFillClick(object sender, EventArgs e)
         {
             _currentAction = DrawFillRectangleOrPreview;
         }
 
+        /// <summary>
+        /// рисование текста
+        /// </summary>
         private void OnButtonTextClick(object sender, EventArgs e)
         {
             _currentAction = DrawText;
         }
 
+        /// <summary>
+        /// Заливка
+        /// </summary>
         private void Filling()
         {
 
         }
 
+        /// <summary>
+        /// Метод стирания изображения
+        /// </summary>
         private void Erase()
         {
             Point startPoint = new Point(px.X, px.Y);
@@ -229,7 +245,9 @@ namespace PAINT_2._0
             MainPictureBox.Invalidate();
         }
 
-
+        /// <summary>
+        /// Метод рисования карандашем
+        /// </summary>
         private void DrawLine()
         {
 
@@ -245,7 +263,9 @@ namespace PAINT_2._0
         }
 
 
-
+        /// <summary>
+        /// Метод рисования векторной линии
+        /// </summary>
         private void DrawStraightLineOrPreview()
         {
             Pen pen = p.Clone() as Pen;
@@ -266,6 +286,9 @@ namespace PAINT_2._0
             MainPictureBox.Invalidate();
         }
        
+        /// <summary>
+        /// Метод рисующий абрис прямоугольника и превьюху
+        /// </summary>
         private void DrawRectangleOrPreview()
         {
             Pen pen = p.Clone() as Pen;
@@ -283,6 +306,10 @@ namespace PAINT_2._0
             }
             MainPictureBox.Invalidate();
         }
+
+        /// <summary>
+        /// Метод рисующий абрис эллимса и превьюху
+        /// </summary>
         private void DrawEllipseOrPreview()
         {
             Pen pen = p.Clone() as Pen;
@@ -300,6 +327,9 @@ namespace PAINT_2._0
             MainPictureBox.Invalidate();
         }
 
+        /// <summary>
+        /// Метод рисующий эллипс с заливкой и его превьюху
+        /// </summary>
         private void DrawEllipseFillOrPreview()
         {
             Brush brush = b.Clone() as Brush;
