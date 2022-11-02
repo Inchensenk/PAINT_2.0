@@ -8,9 +8,17 @@ using System.Windows.Input;
 namespace PAINT_2._0
 {
 
-    public delegate void RoundDelegate();
+
+
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// Делегат для метода скругленной отрисовки
+        /// </summary>
+        public delegate void RoundDelegate();
+
+        private delegate Point SetPointDelegate(PictureBox pb, Point pt);
+
         /// <summary>
         /// Делегат хранящий отрисованные обьекты
         /// </summary>
@@ -25,7 +33,10 @@ namespace PAINT_2._0
         /// Делегат хранящий текущее действие
         /// </summary>
         private Action _currentAction;
-     
+
+        private Action<PictureBox, MouseEventArgs> _onPictureBoxMouseDown;
+
+       
 
         public Form1()
         {
@@ -120,20 +131,45 @@ namespace PAINT_2._0
 
         private void OnButtonFillClick(object sender, EventArgs e)
         {
-            //index = (int)Index.Fill;
             _currentAction = Filling;
         }
 
         private void OnPicMouseClick(object sender, MouseEventArgs e)
         {
-            if (_currentAction == Filling)
+
+            SetPointDelegate setPointDelegate = new SetPointDelegate(SetPoint);
+
+            Point point = setPointDelegate.Invoke(MainPictureBox, e.Location);
+
+
+
+
+            Bitmap bmp = bm.Clone() as Bitmap;
+            Color new_clr = newColor;
+            
+            _fill = (bmp, x, y, new_clr) =>
             {
-                Point point = SetPoint(MainPictureBox, e.Location);
-                Fill(bm, point.X, point.Y, newColor);
-                _currentAction?.Invoke();
-                
-            }
-            MainPictureBox.Invalidate();
+                Color old_color = bmp.GetPixel(x, y);
+                Stack<Point> pixel = new Stack<Point>();
+                pixel.Push(new Point(x, y));
+
+                bmp.SetPixel(x, y, new_clr);
+                if (old_color == new_clr) return;
+
+                while (pixel.Count > 0)
+                {
+                    Point pt = pixel.Pop();
+                    if (pt.X > 0 && pt.Y > 0 && pt.X < bm.Width - 1 && pt.Y < bm.Height - 1)
+                    {
+                        Validate(bmp, pixel, pt.X - 1, pt.Y, old_color, new_clr);
+                        Validate(bmp, pixel, pt.X, pt.Y - 1, old_color, new_clr);
+                        Validate(bmp, pixel, pt.X + 1, pt.Y, old_color, new_clr);
+                        Validate(bmp, pixel, pt.X, pt.Y + 1, old_color, new_clr);
+                    }
+                }
+            };
+            _fill.Invoke(bmp, point.X, point.Y, new_clr);
+
         }
 
         /// <summary>
@@ -226,7 +262,8 @@ namespace PAINT_2._0
         /// </summary>
         private void Filling()
         {
-
+            _onPictureBoxMouseDown = OnPicMouseClick;
+            
         }
 
         /// <summary>
@@ -386,14 +423,14 @@ namespace PAINT_2._0
         }
 
 
-
+        
         static Point SetPoint(PictureBox pb, Point pt)
         {
             float pX = 1f * pb.Image.Width / pb.Width;
             float pY = 1f * pb.Image.Height / pb.Height;
             return new Point((int)(pt.X*pX), (int)(pt.Y*pY));
         }
-
+        
 
 
         /// <summary>
@@ -420,6 +457,8 @@ namespace PAINT_2._0
                 bm.SetPixel(x,y,new_color);
             }
         }
+
+        Action<Bitmap, int, int, Color> _fill;
         public void Fill(Bitmap bm, int x, int y, Color new_clr)
         {
             Color old_color = bm.GetPixel(x, y);
